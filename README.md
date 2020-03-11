@@ -7,8 +7,10 @@ To run test server:
 /server/node mtyson-imt-server.js
 
 Client:
-  npm start -- <URL> <outfile> [throttle rate in bps]
+
+  `npm start -- <URL> <outfile> [throttle rate in bps]`
   
   For example: 
-    npm start -- http://localhost:8080 ./outfile.txt 10000000
+  
+    `npm start -- http://localhost:8080 ./outfile.txt 10000000`
     
