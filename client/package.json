@@ -10,7 +10,6 @@
   "author": "Matt Tyson",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^6.6.1",
     "throttle": "^1.0.3"
   }
 }
