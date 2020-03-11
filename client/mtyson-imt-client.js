@@ -1,5 +1,6 @@
 /**
  * @Author Matt Tyson matt@wholisticsoftware.com
+ * @copyright Attribution
  * 
  * to run:
  *   npm start -- http://localhost:8080 ./outfile.txt 100000
@@ -142,13 +143,9 @@ const req = http.request({
           } 
         }
       }
-
-      //resp.pause();
-      //to = setTimeout( () => { resp.resume() }, 1000 );
     }).on('end', function() {
         var buffer = Buffer.concat(data);  //at this point data is an array of Buffers so Buffer.concat() can make us a new Buffer of all of them together
         // for (let x of buffer){ console.log("x: " + x); } console.log("hex: " + getHex(hash([12])));
-
         fs.writeFile(outfile, getHex( hash( buffer ) ), (e) => {
           if (e) { console.log(`Writing to outfile failed: ${e.message}`); process.exit(1); }
           console.log("Wrote hash hex to: " + outfile);
