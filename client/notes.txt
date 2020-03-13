@@ -1,0 +1,81 @@
+/*
+const req = http.request({ 
+  createConnection: createConnection,  hostname: urlObject.hostname,
+  path: urlObject.path,  port: urlObject.port,  method: 'GET' }, 
+  (resp) => {  
+    let data = [];
+
+    resp.on('data', function(chunk) {
+        data.push(chunk);
+    }).on('end', function() {
+        //at this point data is an array of Buffers so Buffer.concat() can make us a new Buffer of all of them together
+        var buffer = Buffer.concat(data);
+        //console.log("hex: " + getHex(hash([12])));
+
+        fs.writeFile(outfile, getHex( hash( buffer ) ), (e) => {
+          if (e) { console.log(`Writing to outfile failed: ${e.message}`); process.exit(1); }
+          console.log("Wrote hash hex to: " + outfile);
+          process.exit(0);
+        });      
+    });
+    //resp.on('data', (chunk) => { console.log("chunk: " + chunk + " /n");   data += chunk;  });
+    resp.on('end', () => { console.log("final: " + data); });
+})
+
+req.on('error', (e) => {
+  console.error(`That request didn't work out: ${e.message}`);
+});
+
+req.end();
+*/
+
+
+
+
+/*
+Throttle at the TCP level:
+
+const agent = new http.Agent();
+
+let createConnection = agent.createConnection;
+if (throttleRate){ 
+  if (isNaN(throttleRate)){ console.log("Throttle rate has to be a number. Got: " + throttleRate); process.exit(1);}
+  throttleRate = parseInt(throttleRate, 10);
+  console.log(`Throttle set to (BPS): ${throttleRate}`)
+  var throttle = new Throttle(100 * 1024);
+  createConnection = (opts, callback) => {
+    const socket = new net.Socket(opts);
+    let startTime = Date.now();
+
+    console.log("highwater: " + socket.readableHighWaterMark); // 16k default
+
+    socket.on("data", (chunk) => {
+      
+      console.log("bytesread: " + socket.bytesRead);
+      console.log("socket chunk: " + chunk.byteLength);
+
+      let totalSeconds = (Date.now() - startTime) / 1000;
+      let expected = totalSeconds * throttleRate;
+      console.log("expected: " + expected);
+
+      if (socket.bytesRead > expected) {
+        // Use this byte count to calculate how many seconds ahead we are. Taken from: https://github.com/TooTallNate/node-throttle/blob/master/throttle.js
+        const remainder = socket.bytesRead - expected;
+        const sleepTime = remainder / throttleRate * 1000;
+
+        if (sleepTime > 0) {
+          console.log("PAUSING for " + sleepTime);
+          socket.pause();
+          setTimeout(() => {
+            //socket.resume();
+          }, sleepTime);
+        } 
+      }
+    })
+    socket.pause();
+    socket.connect(opts);
+    socket.resume();
+    return socket; //.pipe(throttle);
+  }
+}
+*/
